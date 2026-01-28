@@ -1,0 +1,40 @@
+#traffic-glow-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999999;
+}
+
+/* Shared animation */
+@keyframes glowPulse {
+  0% {
+    box-shadow:
+      0 0 30px rgba(var(--c), 0.5),
+      0 0 80px rgba(var(--c), 0.35),
+      inset 0 0 30px rgba(var(--c), 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 50px rgba(var(--c), 0.7),
+      0 0 120px rgba(var(--c), 0.5),
+      inset 0 0 50px rgba(var(--c), 0.6);
+  }
+  100% {
+    box-shadow:
+      0 0 30px rgba(var(--c), 0.5),
+      0 0 80px rgba(var(--c), 0.35),
+      inset 0 0 30px rgba(var(--c), 0.4);
+  }
+}
+
+/* Yellow (warning) */
+.glow-yellow {
+  --c: 241, 196, 15;
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+/* Red (time up) */
+.glow-red {
+  --c: 231, 76, 60;
+  animation: glowPulse 1.8s ease-in-out infinite;
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        width: 160px;
+        padding: 10px;
+        text-align: center;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        margin: 6px 0;
+        font-size: 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+      }
+      .green {
+        background: #2ecc71;
+      }
+      .yellow {
+        background: #f1c40f;
+        color: black;
+      }
+      .red {
+        background: #e74c3c;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="green" data-color="off">Clear</button>
+    <button class="yellow" data-color="yellow">Warning</button>
+    <button class="red" data-color="red">Time up</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

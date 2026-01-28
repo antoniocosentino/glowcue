@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "GlowCue",
+  "version": "1",
+  "description": "Traffic-light glow signal for presentations",
+  "permissions": ["scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
