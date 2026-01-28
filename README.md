@@ -38,4 +38,68 @@ https://github.com/user-attachments/assets/f2fbfa5f-da4b-4fea-ad57-9cb17047f37a
 ### Fully lightweight and unobtrusive
 
 - Only shows the glow when needed
-- Doesn’t interfere with your slides or content
+- Doesn't interfere with your slides or content
+
+## Development
+
+This extension is built with TypeScript, ESLint, Prettier, and Webpack.
+
+### Setup
+
+```bash
+npm install
+```
+
+### Development Mode
+
+Run the dev build with watch mode. The extension will be built to the `dist/` folder:
+
+```bash
+npm run dev
+```
+
+Load the extension in Chrome:
+1. Open Chrome and navigate to `chrome://extensions/`
+2. Enable "Developer mode"
+3. Click "Load unpacked"
+4. Select the `dist/` folder
+
+The extension will automatically rebuild when you make changes to the source files.
+
+### Production Build
+
+Create an optimized production build in the `build/` folder with a zip file for Chrome Web Store submission:
+
+```bash
+npm run build
+```
+
+### Code Quality
+
+```bash
+# Run TypeScript type checking
+npm run type-check
+
+# Run ESLint
+npm run lint
+
+# Format code with Prettier
+npm run format
+```
+
+### Project Structure
+
+```
+glowcue/
+├── src/              # TypeScript source files
+│   ├── background.ts
+│   ├── content.ts
+│   ├── popup.ts
+│   ├── types.ts
+│   ├── popup.html
+│   └── glow.css
+├── dist/             # Development builds (gitignored)
+├── build/            # Production builds (gitignored)
+├── icons/            # Extension icons
+└── manifest.json     # Chrome extension manifest
+```

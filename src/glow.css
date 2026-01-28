@@ -33,7 +33,7 @@
 
 /* Optional subtle gradient wash (very Siri-ish) */
 #traffic-glow-overlay::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
