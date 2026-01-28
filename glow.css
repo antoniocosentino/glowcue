@@ -1,40 +1,59 @@
 #traffic-glow-overlay {
-  position: fixed;
-  inset: 0;
   pointer-events: none;
   z-index: 999999;
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
-/* Shared animation */
+/* Base glow animation */
 @keyframes glowPulse {
   0% {
     box-shadow:
-      0 0 30px rgba(var(--c), 0.5),
-      0 0 80px rgba(var(--c), 0.35),
-      inset 0 0 30px rgba(var(--c), 0.4);
+      0 0 40px rgba(var(--c), 0.75),
+      0 0 120px rgba(var(--c), 0.55),
+      0 0 220px rgba(var(--c), 0.35),
+      inset 0 0 50px rgba(var(--c), 0.45);
   }
   50% {
     box-shadow:
-      0 0 50px rgba(var(--c), 0.7),
-      0 0 120px rgba(var(--c), 0.5),
-      inset 0 0 50px rgba(var(--c), 0.6);
+      0 0 70px rgba(var(--c), 0.95),
+      0 0 180px rgba(var(--c), 0.75),
+      0 0 320px rgba(var(--c), 0.55),
+      inset 0 0 90px rgba(var(--c), 0.7);
   }
   100% {
     box-shadow:
-      0 0 30px rgba(var(--c), 0.5),
-      0 0 80px rgba(var(--c), 0.35),
-      inset 0 0 30px rgba(var(--c), 0.4);
+      0 0 40px rgba(var(--c), 0.75),
+      0 0 120px rgba(var(--c), 0.55),
+      0 0 220px rgba(var(--c), 0.35),
+      inset 0 0 50px rgba(var(--c), 0.45);
   }
 }
 
-/* Yellow (warning) */
-.glow-yellow {
-  --c: 241, 196, 15;
-  animation: glowPulse 2.5s ease-in-out infinite;
+/* Optional subtle gradient wash (very Siri-ish) */
+#traffic-glow-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--c), 0.15) 0%,
+    rgba(var(--c), 0.08) 40%,
+    rgba(var(--c), 0.02) 65%,
+    transparent 75%
+  );
 }
 
-/* Red (time up) */
+/* Yellow = strong warning */
+.glow-yellow {
+  --c: 255, 200, 40;
+  animation: glowPulse 2.4s ease-in-out infinite;
+}
+
+/* Red = urgent */
 .glow-red {
-  --c: 231, 76, 60;
-  animation: glowPulse 1.8s ease-in-out infinite;
+  --c: 255, 60, 60;
+  animation: glowPulse 1.6s ease-in-out infinite;
 }
