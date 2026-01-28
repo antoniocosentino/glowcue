@@ -2,6 +2,11 @@
 
 GlowCue is a simple Chrome extension designed for presenters who want to stay on track during timed talks. With just a click or a right-click menu you can signal time warnings directly on your slides using vibrant, animated glows. Perfect for Pitch Slides, Google Slides, Docs, or any web-based presentation tool.
 
+
+https://github.com/user-attachments/assets/f2fbfa5f-da4b-4fea-ad57-9cb17047f37a
+
+
+
 ## Features
 
 ### Traffic-light-style signaling
