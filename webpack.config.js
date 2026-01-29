@@ -48,6 +48,7 @@ module.exports = (env, argv) => {
       new ZipPlugin({
         filename: 'glowcue.zip',
         path: path.resolve(__dirname, 'build'),
+        exclude: [/\.DS_Store$/],
       })
     );
   }
