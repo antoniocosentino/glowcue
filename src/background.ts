@@ -1,5 +1,11 @@
 import type { GlowColor, GlowMessage } from './types';
 
+const BASE_TITLES: Record<string, string> = {
+  'glowcue-off': '🟢 Clear',
+  'glowcue-yellow': '🟡 Warning',
+  'glowcue-red': '🔴 Time up',
+};
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: 'glowcue-root',
@@ -27,6 +33,49 @@ chrome.runtime.onInstalled.addListener(() => {
     title: '🔴 Time up',
     contexts: ['all'],
   });
+});
+
+async function updateContextMenus(tabId: number) {
+  try {
+    const result = await chrome.scripting.executeScript({
+      target: { tabId },
+      func: () => {
+        const overlay = window.__trafficGlowOverlay;
+        if (!overlay || overlay.style.opacity === '0') return 'off';
+        if (overlay.classList.contains('glow-yellow')) return 'yellow';
+        if (overlay.classList.contains('glow-red')) return 'red';
+        return 'off';
+      },
+    });
+
+    const currentColor = result[0]?.result as GlowColor | undefined;
+    const activeMenuId = currentColor
+      ? `glowcue-${currentColor}`
+      : 'glowcue-off';
+
+    // Update all menu items
+    for (const [menuId, baseTitle] of Object.entries(BASE_TITLES)) {
+      const title =
+        menuId === activeMenuId ? `${baseTitle} (Active)` : baseTitle;
+      chrome.contextMenus.update(menuId, { title });
+    }
+  } catch {
+    // Extension might not be injected yet, reset to base titles
+    for (const [menuId, baseTitle] of Object.entries(BASE_TITLES)) {
+      chrome.contextMenus.update(menuId, { title: baseTitle });
+    }
+  }
+}
+
+// Update context menus when they're about to be shown
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  await updateContextMenus(activeInfo.tabId);
+});
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete' && tab.active) {
+    await updateContextMenus(tabId);
+  }
 });
 
 chrome.contextMenus.onClicked.addListener(
@@ -62,5 +111,8 @@ chrome.contextMenus.onClicked.addListener(
     };
 
     chrome.tabs.sendMessage(tab.id, message);
+
+    // Update context menus to reflect the new active state
+    await updateContextMenus(tab.id);
   }
 );
