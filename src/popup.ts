@@ -57,12 +57,7 @@ document.querySelectorAll('button').forEach((btn) => {
     });
 
     const color = btn.dataset.color as GlowColor;
-    const message: GlowMessage = {
-      type: 'SET_GLOW',
-      color,
-    };
-
-    chrome.tabs.sendMessage(tab.id, message);
+    chrome.runtime.sendMessage({ type: 'SET_GLOW_FROM_POPUP', color });
     window.close();
   });
 });

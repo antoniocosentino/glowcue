@@ -19,5 +19,25 @@
   },
   "action": {
     "default_popup": "popup.html"
+  },
+  "commands": {
+    "glow-clear": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "Clear glow"
+    },
+    "glow-warning": {
+      "suggested_key": {
+        "default": "Alt+Shift+W"
+      },
+      "description": "Warning (yellow)"
+    },
+    "glow-timeup": {
+      "suggested_key": {
+        "default": "Alt+Shift+T"
+      },
+      "description": "Time up (red)"
+    }
   }
 }

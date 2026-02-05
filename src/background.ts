@@ -78,6 +78,33 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   }
 });
 
+async function setGlow(tabId: number, color: GlowColor) {
+  // Ensure content script exists
+  await chrome.scripting
+    .executeScript({
+      target: { tabId },
+      files: ['content.js'],
+    })
+    .catch(() => {});
+
+  await chrome.scripting
+    .insertCSS({
+      target: { tabId },
+      files: ['glow.css'],
+    })
+    .catch(() => {});
+
+  const message: GlowMessage = {
+    type: 'SET_GLOW',
+    color,
+  };
+
+  chrome.tabs.sendMessage(tabId, message);
+
+  // Update context menus to reflect the new active state
+  await updateContextMenus(tabId);
+}
+
 chrome.contextMenus.onClicked.addListener(
   async (info: chrome.contextMenus.OnClickData, tab?: chrome.tabs.Tab) => {
     if (!tab?.id) return;
@@ -90,29 +117,31 @@ chrome.contextMenus.onClicked.addListener(
 
     if (!color) return;
 
-    // Ensure content script exists
-    await chrome.scripting
-      .executeScript({
-        target: { tabId: tab.id },
-        files: ['content.js'],
-      })
-      .catch(() => {});
-
-    await chrome.scripting
-      .insertCSS({
-        target: { tabId: tab.id },
-        files: ['glow.css'],
-      })
-      .catch(() => {});
-
-    const message: GlowMessage = {
-      type: 'SET_GLOW',
-      color,
-    };
-
-    chrome.tabs.sendMessage(tab.id, message);
-
-    // Update context menus to reflect the new active state
-    await updateContextMenus(tab.id);
+    await setGlow(tab.id, color);
   }
 );
+
+chrome.commands.onCommand.addListener(async (command) => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab?.id) return;
+
+  let color: GlowColor | null = null;
+
+  if (command === 'glow-clear') color = 'off';
+  if (command === 'glow-warning') color = 'yellow';
+  if (command === 'glow-timeup') color = 'red';
+
+  if (!color) return;
+
+  await setGlow(tab.id, color);
+});
+
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.type === 'SET_GLOW_FROM_POPUP') {
+    chrome.tabs.query({ active: true, currentWindow: true }).then(([tab]) => {
+      if (tab?.id) {
+        setGlow(tab.id, message.color as GlowColor);
+      }
+    });
+  }
+});
