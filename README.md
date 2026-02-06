@@ -28,7 +28,7 @@ https://github.com/user-attachments/assets/ca294824-ef2d-43b6-a84d-2cf88a2e9b8f
 - Warning (Yellow) ⌥ + ⇧ + Y
 - Time up (Red) ⌥ + ⇧ + R
 
-Shortcuts can also be customized in the Chrome settings, at:
+Shortcuts can also be customized in the Chrome extension shortcut settings, at:
 
 ```
 chrome://extensions/shortcuts
