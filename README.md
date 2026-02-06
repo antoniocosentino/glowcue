@@ -2,9 +2,7 @@
 
 GlowCue is a simple Chrome extension designed for presenters who want to stay on track during timed talks. With just a click or a right-click menu you can signal time warnings directly on your slides using vibrant, animated glows. Perfect for Pitch Slides, Google Slides, Docs, or any web-based presentation tool.
 
-
 https://github.com/user-attachments/assets/ca294824-ef2d-43b6-a84d-2cf88a2e9b8f
-
 
 ## Features
 
@@ -23,6 +21,18 @@ https://github.com/user-attachments/assets/ca294824-ef2d-43b6-a84d-2cf88a2e9b8f
 
 - Right-click anywhere → GlowCue → choose your state
 - Perfect for fullscreen presentations
+
+### Shortcuts support
+
+- Clear (Green) ⌥ + ⇧ + G
+- Warning (Yellow) ⌥ + ⇧ + Y
+- Time up (Red) ⌥ + ⇧ + R
+
+Shortcuts can also be customized in the Chrome settings, at:
+
+```
+chrome://extensions/shortcuts
+```
 
 ### Optional popup control
 
@@ -58,6 +68,7 @@ npm run dev
 ```
 
 Load the extension in Chrome:
+
 1. Open Chrome and navigate to `chrome://extensions/`
 2. Enable "Developer mode"
 3. Click "Load unpacked"

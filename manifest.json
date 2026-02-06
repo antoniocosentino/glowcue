@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GlowCue",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Visual time signals for presenters",
   "permissions": [
     "scripting",
@@ -23,21 +23,21 @@
   "commands": {
     "glow-clear": {
       "suggested_key": {
-        "default": "Alt+Shift+C"
+        "default": "Alt+Shift+G"
       },
-      "description": "Clear glow"
+      "description": "Clear (Green)"
     },
     "glow-warning": {
       "suggested_key": {
-        "default": "Alt+Shift+W"
+        "default": "Alt+Shift+Y"
       },
-      "description": "Warning (yellow)"
+      "description": "Warning (Yellow)"
     },
     "glow-timeup": {
       "suggested_key": {
-        "default": "Alt+Shift+T"
+        "default": "Alt+Shift+R"
       },
-      "description": "Time up (red)"
+      "description": "Time up (Red)"
     }
   }
 }
